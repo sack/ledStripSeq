@@ -8,6 +8,7 @@ void setup() {
   size(1280, 720);  
   leds = new ArrayList<Led>();
   frameRate(10);
+  loadLeds();
 }
 void draw() {
   //grey background
@@ -55,7 +56,7 @@ void draw() {
   text("u: delete last led", 7*32, 8*32);
   text("s: save leds", 7*32, 9*32);
   text("l: load leds", 7*32, 10*32);
-  text("c: load animations", 7*32, 11*32);
+  text("1,2,....: load animations", 7*32, 11*32);
   text("x: create animation file", 7*32, 12*32);
   text("space: play animation", 7*32, 13*32);
   text("leds: "+leds.size(), 7*32, 14*32);
@@ -69,8 +70,9 @@ void draw() {
 }
 void mouseClicked() {
   //create a new led
+  /*
    leds.add(new Led(mouseX,mouseY,leds.size()));
-
+   */
 }
 void keyPressed() {
   if (key == 'u') {
@@ -88,9 +90,13 @@ void keyPressed() {
     //load the led positions from a file
     loadLeds();
    } 
-   if (key == 'c'){
+   if (key == '1'){
     //load the led animations from a file
-    loadAnimations();
+    loadAnimations(1);
+   }
+  if (key == '2'){
+    //load the led animations from a file
+    loadAnimations(2);
    }
 
  if (key == 'x'){
@@ -104,9 +110,9 @@ void keyPressed() {
 
 }
 
-void loadAnimations() {
+void loadAnimations(int animationNumber) {
   //load the leds animations from a file
-  frames = loadStrings("animations.txt");
+  frames = loadStrings("animations"+animationNumber+".txt");
   for (int i = 0; i < frames.length; i++) {
     for (int j = 0; j < leds.size(); j++) {
       String[] parts = split(frames[i], ',');
