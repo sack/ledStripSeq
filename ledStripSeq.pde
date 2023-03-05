@@ -101,7 +101,7 @@ void keyPressed() {
 
  if (key == 'x'){
     //load the led animations from a file
-    createAnimationFile();
+    createAnimationFile2();
  }
  if (key == ' '){
     //load the led animations from a file
@@ -188,5 +188,19 @@ void createAnimationFile() {
       }
     }
   }
-  saveStrings("animations.txt", lines);
+  saveStrings("animations1.txt", lines);
+}
+
+//create animation file that displays at every frame each led in a different color
+void createAnimationFile2() {
+  String[] lines = new String[leds.size()];
+  for (int i = 0; i < leds.size(); i++) {
+    lines[i] = "";
+    for (int j = 0; j < leds.size(); j++) {
+      
+        lines[i] += random(255)+","+random(255)+","+random(255)+"',";
+     
+    }
+  }
+  saveStrings("animations2.txt", lines);
 }
