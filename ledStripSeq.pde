@@ -192,14 +192,13 @@ void createAnimationFile() {
 void createAnimationFile2() {
   String[] lines = new String[leds.size()];
   for (int i = 0; i < leds.size(); i++) {
-    lines[i] = "";
-    for (int j = 0; j < leds.size(); j++) {
-      
-        lines[i] += random(255)+","+random(255)+","+random(255)+"',";
-     
+     lines[i] = "";
+    lines[i] += i+":FF0000";
+    if (i>0) {
+      lines[i] +=" "+(i-1)+":000000";
     }
   }
-  saveStrings("animations2.txt", lines);
+  saveStrings("animations1.txt", lines);
 }
 
 //create animation file that displays at every frame each led in a different color
