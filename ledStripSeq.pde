@@ -40,13 +40,18 @@ void draw() {
   }
   if (play) {
     //display the leds in the current frame
-    for (int i = 0; i < leds.size(); i++) {
-      String[] parts = split(frames[frameCount%frames.length], ',');
-      int r = PApplet.parseInt(parts[i*3]);
-      int g = PApplet.parseInt(parts[i*3+1]);
-      int b = PApplet.parseInt(parts[i*3+2]);
-      leds.get(i).c = color(r,g,b);
-    }
+   
+      String[] frameLeds = split(frames[frameCount%frames.length], ' ');
+      for (int i = 0; i < frameLeds.length; i++) {
+          String[] parts = split(frameLeds[i], ':');
+          int ledIndex = PApplet.parseInt(parts[0]);
+          int c = -16777216 + unhex(parts[1]);
+
+
+          leds.get(ledIndex).c = c;
+      } 
+    
+    
   }
 
   //screen 
@@ -112,17 +117,9 @@ void keyPressed() {
 
 void loadAnimations(int animationNumber) {
   //load the leds animations from a file
-  frames = loadStrings("animations"+animationNumber+".txt");
-  for (int i = 0; i < frames.length; i++) {
-    for (int j = 0; j < leds.size(); j++) {
-      String[] parts = split(frames[i], ',');
-      int r = PApplet.parseInt(parts[j*3]);
-      int g = PApplet.parseInt(parts[j*3+1]);
-      int b = PApplet.parseInt(parts[j*3+2]);
-      leds.get(j).c = color(r,g,b);
 
-    }
-  }
+  frames = loadStrings("animations"+animationNumber+".txt");
+ 
 }
 
 
@@ -204,3 +201,7 @@ void createAnimationFile2() {
   }
   saveStrings("animations2.txt", lines);
 }
+
+//create animation file that displays at every frame each led in a different color
+// each led are indexed and we can have diffenrent led numbers in each frame
+
