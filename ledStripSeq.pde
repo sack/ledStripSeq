@@ -26,15 +26,16 @@ void draw() {
     leds.get(i).draw();
     if (i>0) {
       //draw a line between the current led and the previous one
-      line(leds.get(i).x+16, leds.get(i).y+16, leds.get(i-1).x+16, leds.get(i-1).y+16);
+      stroke(255,255,0,200);
+      line(leds.get(i).x+5, leds.get(i).y+5, leds.get(i-1).x+5, leds.get(i-1).y+5);
     }
   }
   //draw a line between the current led and the mouse 
   if (leds.size()>0) {
-    //line(leds.get(leds.size()-1).x+16, leds.get(leds.size()-1).y+16, mouseX, mouseY);
-    line(leds.get(leds.size()-1).x, leds.get(leds.size()-1).y, mouseX, mouseY);
-    fill(0, 32);
-    rect(mouseX, mouseY,32,32);
+    ////line(leds.get(leds.size()-1).x+16, leds.get(leds.size()-1).y+16, mouseX, mouseY);
+    //line(leds.get(leds.size()-1).x, leds.get(leds.size()-1).y, mouseX, mouseY);
+    //fill(0, 32);
+    //rect(mouseX, mouseY,32,32);
   }
   if (play) {
     //display the leds in the current frame
@@ -142,9 +143,11 @@ class Led {
   
   void draw() {
     fill(c);
-    rect(x, y, 32, 32);
-    fill(165);
-    text(ledIndex, x+20, y+20);  
+    //rect(x, y, 32, 32);
+    noStroke();
+    rect(x, y, 10, 10);
+    fill(0,170,0);
+    text(ledIndex, x+12, y+9);  
   }
 
 }
