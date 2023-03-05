@@ -48,6 +48,21 @@ void draw() {
     }
   }
 
+  //screen 
+  fill(0);
+  rect(6*32,7*32,27*32,12*32);
+  fill(255);
+  text("u: delete last led", 7*32, 8*32);
+  text("s: save leds", 7*32, 9*32);
+  text("l: load leds", 7*32, 10*32);
+  text("c: load animations", 7*32, 11*32);
+  text("x: create animation file", 7*32, 12*32);
+  text("space: play animation", 7*32, 13*32);
+  text("leds: "+leds.size(), 7*32, 14*32);
+
+ 
+  text("framerate: "+frameRate, 7*32, 17*32);
+
 
 
 
