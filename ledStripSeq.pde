@@ -187,7 +187,7 @@ void loadLeds() {
     leds.add(new Led(x, y, i));
   }
 } 
-
+/**/
 void saveLeds() {
   //save the led positions to a file
   String[] lines = new String[leds.size()];
@@ -195,7 +195,7 @@ void saveLeds() {
     lines[i] = leds.get(i).x + "," + leds.get(i).y;
   }
   saveStrings("leds.txt", lines);
-}
+}/**/
 
 class Led {
   
@@ -224,6 +224,53 @@ class Led {
   void click() {
     if (mouseX>x && mouseX<x+10 && mouseY>y && mouseY<y+10) {
       c = colorPicker;
+      //read the sequencer current frame and set the led color
+      
+      String[] frameLeds = split(sequencer.animations.get(sequencer.currentFrame), ' ');
+      println(frameLeds);
+      
+      ArrayList<Integer> leds = new ArrayList<>();
+
+      for (int i = 0; i < frameLeds.length; i++) {
+        String[] parts = split(frameLeds[i], ':');
+        leds.add(PApplet.parseInt(parts[0]));
+      }
+      //if current led is in the current frame
+      if (leds.contains(ledIndex)) {
+        //remove the led from the current frame
+        println("contains");
+        println(sequencer.animations.get(sequencer.currentFrame));
+        //search for the led in the current
+        int idx =sequencer.animations.get(sequencer.currentFrame).indexOf(ledIndex+":");
+        println(ledIndex);
+
+        int lenled=str(ledIndex).length()+7;
+        println(lenled);
+        String pColor = sequencer.animations.get(sequencer.currentFrame).substring(idx, idx+lenled);
+        println("-"+pColor+"-");
+        sequencer.animations.set(sequencer.currentFrame, sequencer.animations.get(sequencer.currentFrame).replace(pColor, ledIndex+":"+hex(c, 6)));
+
+
+
+      } else {
+        //add the led to the current frame
+        sequencer.animations.set(sequencer.currentFrame, sequencer.animations.get(sequencer.currentFrame)+" "+ledIndex+":"+hex(c, 6));
+      }
+
+
+      println(leds);
+      println(sequencer.animations.get(sequencer.currentFrame));
+      //save file
+      sequencer.saveAnimation();
+        
+
+          
+
+
+
+          //leds.get(ledIndex).c = c;
+      
+
     }
   }
 
@@ -485,7 +532,7 @@ class Sequencer {
     animations.add(line); 
   }
   //save animation to file
-  void saveAnimation(String fileName) {
+  void saveAnimation() {
 
     //convert arraylist to array
     String[] frames = new String[animations.size()];
@@ -493,7 +540,7 @@ class Sequencer {
       frames[i] = (String) this.animations.get(i);
     }
 
-    saveStrings("animations8.txt", frames);
+    saveStrings("animations7.txt", frames);
   }
 
   //display current frame
